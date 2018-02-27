@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="frag/header :: header"></head>
+<body>
+
+<div th:replace="frag/bar :: bar"></div>
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<td>Id</td>
+			<td>Tytuł</td>
+			<td>Autor</td>
+			<td>Rola</td>
+			<td>User</td>
+			<td>Category</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="count : ${lista}">
+			<td th:text="${count.bookId}"></td>
+			<td th:text="${count.bookAuthor}"></td>
+			<td th:text="${count.bookTitle}"></td>
+			<td th:text="${count.userId}"></td>
+			<td th:text="${count.roleId}"></td>
+			<!--<td th:text="${count.categoryId}"></td>-->
+			<td><a class="btn btn-primary" th:href="@{/lista/{id}(id=${count.bookId})}" role="button">Info</a></td>
+		</tr>
+		</tbody>
+	</table>
+	<p th:text="${'Liczba wszystkich rekordów w bazie: '+liczba}"></p>
+</div>
+<div lang="en" th:replace="frag/footer :: footer"></div>
+
+</body>
+</html>
