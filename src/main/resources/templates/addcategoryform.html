@@ -8,10 +8,10 @@
 
 
 	<h1>Form</h1>
-	<form action="#" th:action="@{/potwierdz}" th:object="${book}" method="post">
-		<p>Id: <input type="hidden" th:field="*{bookId}"/></p>
-		<p>Author: <input type="text" th:field="*{bookAuthor}"/></p>
-		<p>Title: <input type="text" th:field="*{bookTitle}"/></p>
+	<form action="#" th:action="@{/potwierdzkat}" th:object="${category}" method="post">
+		<p>Id: <input type="hidden" th:field="*{category_id}"/></p>
+		<p>name: <input type="text" th:field="*{name}"/></p>
+		<!--<p>Title: <input type="text" th:field="*{bookTitle}"/></p>-->
 		<!--<p>UserID: <input type="number" name="quantity" min="1" max="5" th:field="*{userId}"/></p>-->
 		<!--<p>RoleId: <input type="number" name="quantity" min="1" max="5" th:field="*{roleId}"/></p>-->
 		<!--<p>CategoryId: <input type="number" name="quantity" min="1" max="2" th:field="*{categoryId}"/></p>-->

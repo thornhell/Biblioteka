@@ -11,8 +11,6 @@
 			<td>Id</td>
 			<td>Tytuł</td>
 			<td>Autor</td>
-			<td>Rola</td>
-			<td>User</td>
 			<td>Category</td>
 		</tr>
 		</thead>
@@ -21,14 +19,12 @@
 			<td th:text="${count.bookId}"></td>
 			<td th:text="${count.bookAuthor}"></td>
 			<td th:text="${count.bookTitle}"></td>
-			<td th:text="${count.userId}"></td>
-			<td th:text="${count.roleId}"></td>
 			<!--<td th:text="${count.categoryId}"></td>-->
-			<td><a class="btn btn-primary" th:href="@{/lista/{id}(id=${count.bookId})}" role="button">Info</a></td>
+			<td><a class="btn btn-primary" th:href="@{/listaksiazek/{id}(id=${count.bookId})}" role="button">Info</a></td>
 		</tr>
 		</tbody>
 	</table>
-	<p th:text="${'Liczba wszystkich rekordów w bazie: '+liczba}"></p>
+	<p th:text="${'Liczba wszystkich książek w bazie: ' + liczba}"></p>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
 
