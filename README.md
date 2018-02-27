@@ -1,6 +1,6 @@
 # Biblioteka
 
-*Library* is a simple book management application.
+*Biblioteka* is a simple book management application.
 
 
 ## Biblioteka
