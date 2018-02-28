@@ -13,13 +13,17 @@
 
 
 # Versions
-### Current: 0.02
+### Current: 0.03
 
+Code cleaning, applying css.
+
+
+### Old:
+0.02 
 
 Added some improvements:
 * add book & list books;
 * add category & list categories.
 
-### Old
 0.01
 * Added basic CRUD functionality.

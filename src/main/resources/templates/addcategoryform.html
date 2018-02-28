@@ -7,15 +7,12 @@
 <div class="container">
 
 
-	<h1>Form</h1>
+	<h1>Dodaj kategorię:</h1>
 	<form action="#" th:action="@{/potwierdzkat}" th:object="${category}" method="post">
-		<p>Id: <input type="hidden" th:field="*{category_id}"/></p>
-		<p>name: <input type="text" th:field="*{name}"/></p>
-		<!--<p>Title: <input type="text" th:field="*{bookTitle}"/></p>-->
-		<!--<p>UserID: <input type="number" name="quantity" min="1" max="5" th:field="*{userId}"/></p>-->
-		<!--<p>RoleId: <input type="number" name="quantity" min="1" max="5" th:field="*{roleId}"/></p>-->
-		<!--<p>CategoryId: <input type="number" name="quantity" min="1" max="2" th:field="*{categoryId}"/></p>-->
-		<p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+		<div class="form-group">
+		<p>Nazwa kategorii: <input type="text" class="form-control" th:field="*{name}"/></p>
+		<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
+		</div>
 	</form>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
