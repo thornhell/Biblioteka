@@ -13,12 +13,19 @@
 
 
 # Versions
-### Current: 0.03
+### Current: 0.04
+
+Added features:
+* add category to book;
+* categories assigned to specific book are visible on book list.
+
+
+### Old:
+0.03
 
 Code cleaning, applying css.
 
 
-### Old:
 0.02 
 
 Added some improvements:

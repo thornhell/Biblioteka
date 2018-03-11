@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="frag/header :: header"></head>
+<body>
+
+<div th:replace="frag/bar :: bar"></div>
+<div class="container">
+
+
+	<h1>Dodaj kategorię:</h1>
+	<form action="#" th:action="@{/potwierdzkat}" th:object="${category}" method="post">
+		<div class="form-group">
+		<p>Nazwa kategorii: <input type="text" class="form-control" th:field="*{name}"/></p>
+		<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
+		</div>
+	</form>
+</div>
+<div lang="en" th:replace="frag/footer :: footer"></div>
+
+</body>
+</html>
