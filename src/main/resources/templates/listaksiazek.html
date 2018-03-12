@@ -9,18 +9,29 @@
 		<thead>
 		<tr>
 			<td>Id</td>
-			<td>Tytuł</td>
-			<td>Autor</td>
-			<td>Kategoria</td>
+			<td>Imię autora</td>
+			<td>Nazwisko autora</td>
+			<td>Tytuł książki</td>
+			<td>Wydawnictwo</td>
+			<td>Rok wydania</td>
+			<td>Kategorie</td>
+			<td>Dodatkowe informacje</td>
 		</tr>
 		</thead>
 		<tbody>
 		<tr th:each="count : ${lista}">
 			<td th:text="${count.bookId}"></td>
-			<td th:text="${count.bookAuthor}"></td>
-			<td th:text="${count.bookTitle}"></td>
-			<!--<td th:text="${count.categoryId}"></td>-->
-			<td><a class="btn btn-primary" th:href="@{/listaksiazek/{id}(id=${count.bookId})}" role="button">Info</a></td>
+			<td th:text="${count.bookAutorImie}"></td>
+			<td th:text="${count.bookAutorNazwisko}"></td>
+			<td th:text="${count.bookTytul}"></td>
+			<td th:text="${count.bookWydawnictwo}"></td>
+			<td th:text="${count.bookRokWydania}"></td>
+			<td>
+				<span th:each="kategoria,powt : ${count.categories}">
+					<span th:text="${kategoria.name}"/><th:block th:if="${!powt.last}">,</th:block>
+				</span>
+			</td>
+			<td><a class="btn btn-primary" th:href="@{/ksiazkadetal/{id}(id=${count.bookId})}" role="button">Info</a></td>
 		</tr>
 		</tbody>
 	</table>

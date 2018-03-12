@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class indexController {
@@ -30,7 +30,9 @@ public class indexController {
     @RequestMapping("/listaksiazek")
     String lista(Model model) {
         model.addAttribute("lista", bookRepository.findAll());
-        model.addAttribute("liczba", bookRepository.count());
+        model.addAttribute("liczba", bookRepository.count());//po co?
+        List<Category> categories = (List<Category>) categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "listaksiazek";
     }
 
@@ -41,17 +43,17 @@ public class indexController {
         return "listakategorii";
     }
 
-    @RequestMapping("/listaksiazek/{id}")
+    @RequestMapping("/ksiazkadetal/{id}")
     String listaId(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("lista", bookRepository.getOne(id));
         model.addAttribute("liczba", bookRepository.count());
-        return "listaksiazek";
+        return "ksiazkadetal";
     }
 
-    @RequestMapping(value = "/dodajkategorie", method = RequestMethod.GET)
+    @RequestMapping(value = "/dodajkategorieform", method = RequestMethod.GET)
     String dodajkat(Model model) {
         model.addAttribute("category", new Category());
-        return "addcategoryform";
+        return "dodajkategorieform";
     }
 
 
@@ -64,11 +66,11 @@ public class indexController {
         return "redirect:/listakategorii";
     }
 
-    @RequestMapping(value = "/dodajksiazke", method = RequestMethod.GET)
+    @RequestMapping(value = "/dodajksiazkaform", method = RequestMethod.GET)
     String dodaj(Model model) {
-
+        model.addAttribute("listakat", categoryRepository.findAll());
         model.addAttribute("book", new Book());
-        return "addksiazkaform";
+        return "dodajksiazkaform";
     }
 
     @RequestMapping(value = "/potwierdz", method = RequestMethod.POST)
@@ -76,7 +78,27 @@ public class indexController {
         if (result.hasErrors()) {
             return "/error";
         }
-        bookRepository.save(new Book(book.getBookAuthor(), book.getBookTitle()));
+        bookRepository.save(new Book(book.getBookAutorImie(), book.getBookAutorNazwisko(), book.getBookTytul(), book.getBookWydawnictwo(), book.getBookRokWydania()));
+        return "redirect:/listaksiazek";
+    }
+
+    //dodawanie kategorii do ksiazki
+    @RequestMapping(value = "/dodajkategoriedoksiazki/{id}", method = RequestMethod.GET)
+    String dodajkategoriedoksiazki(@PathVariable ("id") long id, Model model){
+        model.addAttribute("ksiazka", bookRepository.findOne(id));
+        model.addAttribute("kategoria", categoryRepository.findAll());
+        return "dodajkategoriedoksiazki";
+    }
+
+    @RequestMapping(value = "/dodajkategoriedoksiazkipotwierdz/{id}", method = RequestMethod.GET)
+    String dodajkategoriedoksiazki2(@PathVariable ("id") long id, @RequestParam long kategoria, Model model){
+        model.addAttribute("ksiazka", bookRepository.findOne(id));
+        model.addAttribute("kategoria", categoryRepository.findAll());
+        Category category = categoryRepository.findOne(kategoria);
+        Book book = bookRepository.findOne(id);
+        book.getCategories().add(category);
+        bookRepository.save(book);
         return "redirect:/listaksiazek";
     }
 }
+

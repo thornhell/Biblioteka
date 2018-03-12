@@ -10,9 +10,27 @@
 	<h1>Dodaj książkę:</h1>
 	<form action="#" th:action="@{/potwierdz}" th:object="${book}" method="post">
 		<div class="form-group">
-		<p>Autor: <input type="text" class="form-control" th:field="*{bookAuthor}"/></p>
-		<p>Tytuł: <input type="text" class="form-control" th:field="*{bookTitle}"/></p>
-		<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
+			<p>Imię autora: <input type="text" class="form-control" th:field="*{bookAutorImie}"/></p>
+			<p>Nazwisko autora: <input type="text" class="form-control" th:field="*{bookAutorNazwisko}"/></p>
+			<p>Tytuł książki: <input type="text" class="form-control" th:field="*{bookTytul}"/></p>
+			<p>Wydawnictwo: <input type="text" class="form-control" th:field="*{bookWydawnictwo}"/></p>
+			<p>Rok wydania: <input type="text" class="form-control" th:field="*{bookRokWydania}"/></p>
+
+			<!--<fieldset class="form-group">-->
+				<!--<div class="row">-->
+					<!--<legend class="col-form-label col-sm-4 pt-0">Wybierz kategorię dla książki</legend>-->
+					<!--<div class="col-sm-8">-->
+						<!--<div th:each="listakat : ${listakat}" class="form-check">-->
+							<!--<input class="form-check-input" type="checkbox" name="id" th:value="${listakat.name}"/>-->
+							<!--<label class="form-check-label"  th:text="${listakat.name}">-->
+								<!--name-->
+							<!--</label>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</fieldset>-->
+
+			<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
 		</div>
 	</form>
 </div>

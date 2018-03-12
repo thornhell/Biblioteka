@@ -1,7 +1,7 @@
 package com.ms.library.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "category")
@@ -16,7 +16,7 @@ public class Category {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             mappedBy = "categories")
-    private List<Book> books;
+    private Set<Book> books;
 
     public Category(String name) {
         this.name = name;
@@ -25,11 +25,11 @@ public class Category {
     public Category() {
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
@@ -48,6 +48,4 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }

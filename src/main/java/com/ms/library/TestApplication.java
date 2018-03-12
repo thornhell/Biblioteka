@@ -10,7 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class TestApplication implements CommandLineRunner{
@@ -33,30 +35,33 @@ public class TestApplication implements CommandLineRunner{
 
         // new objects
 
-        Book b1 = new Book("book1","book1");
-        Book b2 = new Book("book2","book2");
+        bookRepository.save(new Book("Jan","Kowalski","Ważna książka", "Ossolineum", 1977));
+        bookRepository.save(new Book("Adam","Nowak","Kolejna ważna książka", "PWN", 1988));
 
-        Category c1 = new Category("category1");
-        Category c2 = new Category("category2");
-        Category c3 = new Category("category3");
+        categoryRepository.save(new Category("Naukowa"));
+        categoryRepository.save(new Category("Kryminał"));
+        categoryRepository.save(new Category("Horror"));
 
 
-        List<Book> bookList = new ArrayList<>();
-        bookList.add(b1);
-        bookList.add(b2);
-        List<Category> categoryList = new ArrayList<>();
-        categoryList.add(c1);
-        categoryList.add(c2);
+//        List<Book> bookList = new ArrayList<>();
+//        bookList.add(b1);
+//        bookList.add(b2);
 
-        //mixing
-        b1.setCategories(categoryList);
-        b2.setCategories(categoryList);
-        c1.setBooks(bookList);
-        c2.setBooks(bookList);
+        Set<Category> categoryList = new HashSet<Category>();
 
-        //save
-        bookRepository.save(b1);
-        bookRepository.save(b2);
+//        categoryList.add(c1);
+//        categoryList.add(c2);
+//        categoryList.add(c3);
+//
+//        //mixing
+//        b1.setCategories(categoryList);
+//        b2.setCategories(categoryList);
+//        c1.setBooks(bookList);
+//        c2.setBooks(bookList);
+//
+//        //save
+//        bookRepository.save(b1);
+//        bookRepository.save(b2);
 
     }
 

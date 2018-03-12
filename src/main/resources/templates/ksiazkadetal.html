@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="frag/header :: header"></head>
 <body>
-
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
 	<table class="table table-hover">
@@ -14,7 +13,7 @@
 			<td>Tytuł książki</td>
 			<td>Wydawnictwo</td>
 			<td>Rok wydania</td>
-			<td>Dodatkowe informacje</td>
+			<td>Dodawanie kategorii</td>
 		</tr>
 		</thead>
 		<tbody>
@@ -25,7 +24,7 @@
 			<td th:text="${count.bookTytul}"></td>
 			<td th:text="${count.bookWydawnictwo}"></td>
 			<td th:text="${count.bookRokWydania}"></td>
-			<td><a class="btn btn-primary" th:href="@{/listaksiazek/{id}(id=${count.bookId})}" role="button">Info</a></td>
+			<td><a class="btn btn-primary" th:href="@{/dodajkategoriedoksiazki/{id}(id=${count.bookId})}" role="button">Dodaj kategorię</a></td>
 		</tr>
 		</tbody>
 	</table>
@@ -33,6 +32,5 @@
 	<p th:text="${'wybrano kategorie: ' + kat}"></p>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
-
 </body>
 </html>
