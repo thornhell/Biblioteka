@@ -5,14 +5,13 @@
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
 
-	<h1>Dodaj książkę:</h1>
-	<form action="#" th:action="@{/potwierdz}" th:object="${book}" method="post">
+	<h1>Dodaj użytkownika:</h1>
+	<form action="#" th:action="@{/potwierdzdu}" th:object="${uzytkownik}" method="post">
 		<div class="form-group">
-			<p>Imię autora: <input type="text" class="form-control" th:field="*{bookAutorImie}"/></p>
-			<p>Nazwisko autora: <input type="text" class="form-control" th:field="*{bookAutorNazwisko}"/></p>
-			<p>Tytuł książki: <input type="text" class="form-control" th:field="*{bookTytul}"/></p>
-			<p>Wydawnictwo: <input type="text" class="form-control" th:field="*{bookWydawnictwo}"/></p>
-			<p>Rok wydania: <input type="text" class="form-control" th:field="*{bookRokWydania}"/></p>
+			<p>Nazwa użytkownika: <input type="text" class="form-control" th:field="*{userName}"/></p>
+			<!--<p>Rola użytkownika: <input type="text" class="form-control" th:field="*{userRole}"/></p>-->
+			<p>Hasło użytkownika: <input type="text" class="form-control" th:field="*{userPassword}"/></p>
+			<!--<p>Enabled: <input type="text" class="form-control" th:field="*{enabled}"/></p>-->
 			<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
 		</div>
 	</form>

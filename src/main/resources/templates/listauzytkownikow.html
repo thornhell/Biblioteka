@@ -8,17 +8,27 @@
 		<thead>
 		<tr>
 			<td>Id</td>
-			<td>Nazwa kategorii</td>
+			<td>Nazwa użytkownika</td>
+			<td>Rola użytkownika</td>
+			<td>Hasło użytkownika</td>
+			<td>Enabled</td>
+			<td>Dodaj/zmień rolę</td>
+
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="count : ${listakat}">
-			<td th:text="${count.category_id}"></td>
-			<td th:text="${count.name}"></td>
+		<tr th:each="lista : ${listau}">
+			<td th:text="${lista.userId}"></td>
+			<td th:text="${lista.userName}"></td>
+			<td th:text="${lista.userRole}"></td>
+			<td th:text="${lista.userPassword}"></td>
+			<td th:text="${lista.enabled}"></td>
+			<td><a class="btn btn-primary" th:href="@{/uzytkownikdetal/{id}(id=${lista.userId})}" role="button">Szczegóły</a></td>
+
 		</tr>
 		</tbody>
 	</table>
-	<p th:text="${'Liczba wszystkich kategorii w bazie: '+ liczbakat}"></p>
+	<p th:text="${'Liczba wszystkich użytkowników w bazie: '+ liczbauzytkownikow}"></p>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
 </body>

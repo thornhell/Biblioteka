@@ -7,11 +7,10 @@
 	<h1>Dodaj rolę do użytkownika:</h1>
 	<form action="#" th:action="@{/dodajroledouzytkownikapotwierdz/{id}(id=${uzytkownik.userId})}" method="get">
 		<div class="form-group">
-			<select class="form-control" name="kategoria">
-				<option th:each="r : ${rola}"
-						th:value="${r.roleId}"
-						th:text="${r.roleName}">
-				</option>
+			<select class="form-control" name="rola">
+				<option value="1">ADMIN</option>
+				<option value="2">BIBLIO</option>
+				<option value="3">USER</option>
 			</select>
 		</div>
 		<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary"

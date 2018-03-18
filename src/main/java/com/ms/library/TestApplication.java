@@ -58,18 +58,18 @@ public class TestApplication implements CommandLineRunner {
         Role r_biblio = new Role("biblio", "BIBLIO");
         Role r_user = new Role("user", "USER");
 
-        Set<Role> rolesAdmin = new HashSet<Role>();
+        List<Role> rolesAdmin = new ArrayList<Role>();
         rolesAdmin.add(r_admin);
         rolesAdmin.add(r_biblio);
         rolesAdmin.add(r_user);
         u1.setRoles(rolesAdmin);
 
-        Set<Role> rolesBilio = new HashSet<Role>();
+        List<Role> rolesBilio = new ArrayList<Role>();
         rolesBilio.add(r_biblio);
         rolesBilio.add(r_user);
         u2.setRoles(rolesBilio);
 
-        Set<Role> rolesUser = new HashSet<Role>();
+        List<Role> rolesUser = new ArrayList<Role>();
         rolesUser.add(r_user);
         u3.setRoles(rolesUser);
 

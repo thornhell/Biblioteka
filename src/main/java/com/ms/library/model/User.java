@@ -1,7 +1,9 @@
 package com.ms.library.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,15 +20,26 @@ public class User {
     private String userRole;
     @Column(name = "userPassword")
     private String userPassword;
-    @Column(name = "enabled")
-    private int enabled;
+    @Column(name = "enabled", nullable = false)
+    private int enabled = 1;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "userId")},
             inverseJoinColumns = {@JoinColumn(name = "roleId")})
-    private Set<Role> roles = new HashSet<Role>();
+    private List<Role> roles = new ArrayList<Role>();
 
     public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userRole='" + userRole + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", enabled=" + enabled +
+                '}';
     }
 
     public User(String userName, String userPassword, String userRole, int enabled) {
@@ -52,11 +65,11 @@ public class User {
         this.userRole = userRole;
     }
 
-    public Set<Role> getRoles() {
+    public List getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List roles) {
         this.roles = roles;
     }
 

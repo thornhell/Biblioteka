@@ -1,6 +1,7 @@
 package com.ms.library.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,7 @@ public class Role {
     private String roleName;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE,
             mappedBy = "roles")
-    private Set<User> users;
+    private List<User> users;
 
     public Role() {
     }

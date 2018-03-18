@@ -2,8 +2,12 @@ package com.ms.library.controller;
 
 import com.ms.library.model.Book;
 import com.ms.library.model.Category;
+import com.ms.library.model.Role;
+import com.ms.library.model.User;
 import com.ms.library.repository.BookRepository;
 import com.ms.library.repository.CategoryRepository;
+import com.ms.library.repository.RoleRepository;
+import com.ms.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +31,12 @@ public class indexController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @RequestMapping("/")
     String index(Model model) {
@@ -109,6 +119,77 @@ public class indexController {
         bookRepository.save(new Book(book.getBookAutorImie(), book.getBookAutorNazwisko(), book.getBookTytul(), book.getBookWydawnictwo(), book.getBookRokWydania()));
         return "redirect:/listaksiazek";
     }
+
+//-------------------------------
+
+
+    @RequestMapping(value = "/dodajuzytkownikaform", method = RequestMethod.GET)
+    String dodajuzytkownika(Model model) {
+        model.addAttribute("uzytkownik", new User());
+        return "dodajuzytkownikaform";
+    }
+
+    @RequestMapping(value = "/potwierdzdu", method = RequestMethod.POST)
+    String potwierdzdu(@ModelAttribute User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/error";
+        }
+        userRepository.save(new User(user.getUserName(), user.getUserPassword(), user.getUserRole(), user.getEnabled()));
+        return "redirect:/listauzytkownikow";
+    }
+
+    @RequestMapping("/listauzytkownikow")
+    String listauzytkownikow(Model model) {
+        model.addAttribute("listau", userRepository.findAll());
+        model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "listauzytkownikow";
+    }
+
+
+    @RequestMapping("/uzytkownikdetal/{id}")
+    String uzytkownikdetal(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("uzytkownik", userRepository.getOne(id));
+        model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "uzytkownikdetal";
+    }
+
+    @RequestMapping(value = "/dodajroledouzytkownika/{id}", method = RequestMethod.GET)
+    String dodajkategoriedouzytkownika(@PathVariable("id") long id, Model model) {
+        model.addAttribute("uzytkownik", userRepository.findOne(id));
+        model.addAttribute("rola", roleRepository.findAll());
+        return "dodajroledouzytkownika";
+    }
+
+    @RequestMapping(value = "/dodajroledouzytkownikapotwierdz/{id}", method = RequestMethod.GET)
+    String dodajroledouzytkownikapotwierdz(@PathVariable("id") long id, @RequestParam long rola, Model model) {
+        model.addAttribute("uzytkownik", userRepository.findOne(id));
+        model.addAttribute("rola", roleRepository.findAll());
+
+        Role role = roleRepository.findOne(rola);
+        User user = userRepository.findOne(id);
+        user.getRoles().add(role);
+        user.setUserRole(role.getRoleName());
+
+        Role newuserrole = new Role();
+        newuserrole.setUserName(user.getUserName());
+        newuserrole.setRoleName(user.getUserRole());
+        roleRepository.save(newuserrole);
+
+
+
+        //role.setRoleName(role);
+      //  book.getCategories().add(category);
+        userRepository.save(user);
+        System.out.println(user.toString());
+       // bookRepository.save(book);
+        return "redirect:/listauzytkownikow";
+    }
+
+
+
+
+
+
 
     //dodawanie kategorii do ksiazki
     @RequestMapping(value = "/dodajkategoriedoksiazki/{id}", method = RequestMethod.GET)

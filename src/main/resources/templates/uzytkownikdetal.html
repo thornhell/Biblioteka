@@ -8,23 +8,22 @@
 		<thead>
 		<tr>
 			<td>Id</td>
-			<td>Imię autora</td>
-			<td>Nazwisko autora</td>
-			<td>Tytuł książki</td>
-			<td>Wydawnictwo</td>
-			<td>Rok wydania</td>
-			<td>Dodawanie kategorii</td>
+			<td>Nazwa użytkownika</td>
+			<td>Rola użytkownika</td>
+			<td>Hasło użytkownika</td>
+			<td>Enabled</td>
+			<td>Dodaj rolę</td>
+
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="count : ${lista}">
-			<td th:text="${count.bookId}"></td>
-			<td th:text="${count.bookAutorImie}"></td>
-			<td th:text="${count.bookAutorNazwisko}"></td>
-			<td th:text="${count.bookTytul}"></td>
-			<td th:text="${count.bookWydawnictwo}"></td>
-			<td th:text="${count.bookRokWydania}"></td>
-			<td><a class="btn btn-primary" th:href="@{/dodajkategoriedoksiazki/{id}(id=${count.bookId})}" role="button">Dodaj kategorię</a></td>
+		<tr th:each="u : ${uzytkownik}">
+			<td th:text="${u.userId}"></td>
+			<td th:text="${u.userName}"></td>
+			<td th:text="${u.userRole}"></td>
+			<td th:text="${u.userPassword}"></td>
+			<td th:text="${u.enabled}"></td>
+			<td><a class="btn btn-primary" th:href="@{/dodajroledouzytkownika/{id}(id=${u.userId})}" role="button">Dodaj rolę</a></td>
 		</tr>
 		</tbody>
 	</table>
