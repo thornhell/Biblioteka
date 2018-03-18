@@ -14,14 +14,28 @@
 
 
 # Versions
-### Current: 0.05
+### Current:  0.07
+
+Added improvements:
+* user menu depend on user role
+* user 'admin' can now add another user
+* some code improvments
+
+### Old:
+0.06
+
+Added improvements:
+* top menu code improvement
+
+
+0.05
 
 Added features:
 * login form with default three users: admin (admin123), biblio (biblio123) and user (user123);
 * some code improvements.
 
 
-### Old:
+
 0.04
 
 Added features:
