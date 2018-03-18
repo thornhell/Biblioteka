@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head lang="en" th:replace="frag/header :: header"></head>
 <body>
-
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
-
 
 	<h1>Dodaj książkę:</h1>
 	<form action="#" th:action="@{/potwierdz}" th:object="${book}" method="post">
@@ -15,26 +13,10 @@
 			<p>Tytuł książki: <input type="text" class="form-control" th:field="*{bookTytul}"/></p>
 			<p>Wydawnictwo: <input type="text" class="form-control" th:field="*{bookWydawnictwo}"/></p>
 			<p>Rok wydania: <input type="text" class="form-control" th:field="*{bookRokWydania}"/></p>
-
-			<!--<fieldset class="form-group">-->
-				<!--<div class="row">-->
-					<!--<legend class="col-form-label col-sm-4 pt-0">Wybierz kategorię dla książki</legend>-->
-					<!--<div class="col-sm-8">-->
-						<!--<div th:each="listakat : ${listakat}" class="form-check">-->
-							<!--<input class="form-check-input" type="checkbox" name="id" th:value="${listakat.name}"/>-->
-							<!--<label class="form-check-label"  th:text="${listakat.name}">-->
-								<!--name-->
-							<!--</label>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</div>-->
-			<!--</fieldset>-->
-
 			<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
 		</div>
 	</form>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
-
 </body>
 </html>

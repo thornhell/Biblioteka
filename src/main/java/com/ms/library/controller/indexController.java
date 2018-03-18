@@ -5,11 +5,17 @@ import com.ms.library.model.Category;
 import com.ms.library.repository.BookRepository;
 import com.ms.library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +29,30 @@ public class indexController {
     CategoryRepository categoryRepository;
 
     @RequestMapping("/")
-    String index() {
+    String index(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        model.addAttribute("uzytkownikZalogowany", name);
         return "index";
+    }
+
+    @RequestMapping("/login")
+    String login() {
+        return "login";
+    }
+
+    @RequestMapping("/wyloguj")
+    String wyloguj(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        SecurityContextHolder.clearContext();
+        session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        for (Cookie cookie : request.getCookies()) {
+            cookie.setMaxAge(0);
+        }
+        return "redirect:login";
     }
 
     @RequestMapping("/listaksiazek")
@@ -84,14 +112,14 @@ public class indexController {
 
     //dodawanie kategorii do ksiazki
     @RequestMapping(value = "/dodajkategoriedoksiazki/{id}", method = RequestMethod.GET)
-    String dodajkategoriedoksiazki(@PathVariable ("id") long id, Model model){
+    String dodajkategoriedoksiazki(@PathVariable("id") long id, Model model) {
         model.addAttribute("ksiazka", bookRepository.findOne(id));
         model.addAttribute("kategoria", categoryRepository.findAll());
         return "dodajkategoriedoksiazki";
     }
 
     @RequestMapping(value = "/dodajkategoriedoksiazkipotwierdz/{id}", method = RequestMethod.GET)
-    String dodajkategoriedoksiazki2(@PathVariable ("id") long id, @RequestParam long kategoria, Model model){
+    String dodajkategoriedoksiazki2(@PathVariable("id") long id, @RequestParam long kategoria, Model model) {
         model.addAttribute("ksiazka", bookRepository.findOne(id));
         model.addAttribute("kategoria", categoryRepository.findAll());
         Category category = categoryRepository.findOne(kategoria);

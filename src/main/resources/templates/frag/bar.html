@@ -1,26 +1,47 @@
 <div class="bar text-center" th:fragment="bar">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Biblioteka</a>
-
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/dodajksiazkaform">Dodaj ksiązkę</a>
-			</li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/listaksiazek">Lista książek</a>
-            </li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/dodajkategorieform">Dodaj kategorię</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/listakategorii">Lista kategorii</a>
-			</li>
-        </ul>
-    </div>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="/">Biblioteka</a>
+		<div sec:authorize="hasAuthority('ADMIN')">
+			<div class="collapse navbar-collapse" id="navbarSupportedContentAdmin">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/dodajksiazkaform">Dodaj ksiązkę</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/listaksiazek">Lista książek</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/dodajkategorieform">Dodaj kategorię</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/listakategorii">Lista kategorii</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/wyloguj">Wyloguj</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div sec:authorize="hasAnyAuthority('USER','BIBLIO')">
+			<div class="collapse navbar-collapse" id="navbarSupportedContentUser">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/listaksiazek">Lista książek</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/listakategorii">Lista kategorii</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/wyloguj">Wyloguj</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 </div>

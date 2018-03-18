@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head lang="en" th:replace="frag/header :: header"></head>
 <body>
 <div th:replace="frag/bar :: bar"></div>
@@ -7,6 +7,9 @@
 	<p>
 	<h1>Biblioteka</h1>
 	</p>
+	<div>
+		<p th:text="'Zalogowano jako: ' + ${uzytkownikZalogowany}"></p>
+	</div>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
 </body>
