@@ -4,10 +4,10 @@
 <body>
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
-	<form action="#" th:action="@{/potwierdzuu/{id}(id=${uzytkownik.userId})}" th:object="${uzytkownik}" method="post">
+	<form action="#" th:action="@{/potwierdzdks/{id}(id=${ksiazka.bookId})}" th:object="${ksiazka}" method="post">
 		<div class="form-group">
-			<p><h1>Czy na pewno usunąć użytkownika?</h1></p>
-			<p><input type="submit" class="btn btn-primary" value="USUN"/></p>
+			<p><h1>Czy na pewno dezaktywować książkę?</h1></p>
+			<p><input type="submit" class="btn btn-danger" value="DEZAKTYWUJ"/></p>
 		</div>
 	</form>
 </div>

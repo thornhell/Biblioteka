@@ -4,30 +4,25 @@
 <body>
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
+	<h1>Lista użytkowników:</h1>
 	<table class="table table-hover">
-		<thead>
 		<tr>
 			<td>Id</td>
 			<td>Nazwa użytkownika</td>
 			<td>Rola użytkownika</td>
 			<td>Hasło użytkownika</td>
-			<td>Enabled</td>
 			<td>Dodaj/zmień rolę</td>
-			<td>Usuń uźytkownika</td>
-
+			<td>Usuń użytkownika</td>
 		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="lista : ${listau}">
+		<tr th:each="lista : ${listau}" th:if="${lista.enabled==1}">
 			<td th:text="${lista.userId}"></td>
 			<td th:text="${lista.userName}"></td>
 			<td th:text="${lista.userRole}"></td>
 			<td th:text="${lista.userPassword}"></td>
-			<td th:text="${lista.enabled}"></td>
-			<td><a class="btn btn-primary" th:href="@{/uzytkownikdetal/{id}(id=${lista.userId})}" role="button">Szczegóły</a></td>
-			<td><a class="btn btn-primary" th:href="@{/uzytkownikusun/{id}(id=${lista.userId})}" role="button">Usuń użytkownika</a></td>
+			<!--<td th:text="${lista.enabled}"></td>-->
+			<td><a class="btn btn-primary" th:href="@{/uzytkownikdetal/{id}(id=${lista.userId})}" role="button">Dodaj/zmień rolę</a></td>
+			<td><a class="btn btn-danger" th:href="@{/uzytkownikdezaktywuj/{id}(id=${lista.userId})}" role="button">Dezaktywuj użytkownika</a></td>
 		</tr>
-		</tbody>
 	</table>
 	<p th:text="${'Liczba wszystkich użytkowników w bazie: '+ liczbauzytkownikow}"></p>
 </div>

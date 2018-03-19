@@ -5,8 +5,9 @@
 
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
+	<h1>Lista książek:</h1>
+
 	<table class="table table-hover">
-		<thead>
 		<tr>
 			<td>Id</td>
 			<td>Imię autora</td>
@@ -14,26 +15,27 @@
 			<td>Tytuł książki</td>
 			<td>Wydawnictwo</td>
 			<td>Rok wydania</td>
-			<td>Kategorie</td>
-			<td>Dodatkowe informacje</td>
+			<td>Kategoria</td>
+			<td>Opcje</td>
 		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="count : ${lista}">
-			<td th:text="${count.bookId}"></td>
-			<td th:text="${count.bookAutorImie}"></td>
-			<td th:text="${count.bookAutorNazwisko}"></td>
-			<td th:text="${count.bookTytul}"></td>
-			<td th:text="${count.bookWydawnictwo}"></td>
-			<td th:text="${count.bookRokWydania}"></td>
+		<tr th:each="l : ${lista}" th:if="${l.enabled==1}">
+			<td th:text="${l.bookId}"></td>
+			<td th:text="${l.bookAutorImie}"></td>
+			<td th:text="${l.bookAutorNazwisko}"></td>
+			<td th:text="${l.bookTytul}"></td>
+			<td th:text="${l.bookWydawnictwo}"></td>
+			<td th:text="${l.bookRokWydania}"></td>
 			<td>
-				<span th:each="kategoria,powt : ${count.categories}">
-					<span th:text="${kategoria.name}"/><th:block th:if="${!powt.last}">,</th:block>
+				<span th:each="kategoria,powt : ${l.categories}">
+					<span th:if="${kategoria.name} != null" th:text="${kategoria.name}"/>
+					<th:block th:if="${!powt.last}">,</th:block>
 				</span>
 			</td>
-			<td><a class="btn btn-primary" th:href="@{/ksiazkadetal/{id}(id=${count.bookId})}" role="button">Info</a></td>
+			<td><a class="btn btn-primary" th:href="@{/ksiazkadetal/{id}(id=${l.bookId})}" role="button">Zmień kategorię</a>
+				<a class="btn btn-danger" th:href="@{/ksiazkadezaktywuj/{id}(id=${l.bookId})}" role="button">Dezaktywuj</a>
+
+			</td>
 		</tr>
-		</tbody>
 	</table>
 	<p th:text="${'Liczba wszystkich książek w bazie: ' + liczba}"></p>
 </div>

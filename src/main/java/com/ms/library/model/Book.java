@@ -21,6 +21,8 @@ public class Book {
     private String bookWydawnictwo;
     @Column(name = "bookRokWydania")
     private int bookRokWydania;
+    @Column(name = "enabled", nullable = false)
+    private int enabled = 1;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "book_category",
             joinColumns = {@JoinColumn(name = "bookId")},
@@ -30,13 +32,21 @@ public class Book {
 
     public Book() {
     }
-
-    public Book(String bookAutorImie, String bookAutorNazwisko, String bookTytul, String bookWydawnictwo, int bookRokWydania) {
+    public Book(String bookAutorImie, String bookAutorNazwisko, String bookTytul, String bookWydawnictwo, int bookRokWydania, int enabled) {
         this.bookAutorImie = bookAutorImie;
         this.bookAutorNazwisko = bookAutorNazwisko;
         this.bookTytul = bookTytul;
         this.bookWydawnictwo = bookWydawnictwo;
         this.bookRokWydania = bookRokWydania;
+        this.enabled = enabled;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 
     public long getBookId() {

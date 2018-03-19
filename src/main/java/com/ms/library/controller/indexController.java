@@ -100,7 +100,7 @@ public class indexController {
         if (result.hasErrors()) {
             return "/error";
         }
-        categoryRepository.save(new Category(category.getName()));
+        categoryRepository.save(new Category(category.getName(), category.getEnabled()));
         return "redirect:/listakategorii";
     }
 
@@ -116,7 +116,7 @@ public class indexController {
         if (result.hasErrors()) {
             return "/error";
         }
-        bookRepository.save(new Book(book.getBookAutorImie(), book.getBookAutorNazwisko(), book.getBookTytul(), book.getBookWydawnictwo(), book.getBookRokWydania()));
+        bookRepository.save(new Book(book.getBookAutorImie(), book.getBookAutorNazwisko(), book.getBookTytul(), book.getBookWydawnictwo(), book.getBookRokWydania(), book.getEnabled()));
         return "redirect:/listaksiazek";
     }
 
@@ -150,20 +150,59 @@ public class indexController {
         return "uzytkownikdetal";
     }
 
-    @RequestMapping("/uzytkownikusun/{id}")
-    String uzytkownikusun(@PathVariable(value = "id") long id, Model model) {
+    @RequestMapping("/uzytkownikdezaktywuj/{id}")
+    String uzytkownikdezaktywuj(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("uzytkownik", userRepository.getOne(id));
         //model.addAttribute("liczbauzytkownikow", userRepository.count());
-        return "uzytkownikusun";
+        return "uzytkownikdezaktywuj";
     }
 
-    @RequestMapping("/potwierdzuu/{id}")
-    String potwierdzuu(@PathVariable(value = "id") long id, Model model) {
-        model.addAttribute("uzytkownik", userRepository.getOne(id));
-        userRepository.delete(id);
+    @RequestMapping("/ksiazkadezaktywuj/{id}")
+    String ksiazkadezaktywuj(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("ksiazka", bookRepository.getOne(id));
+        //model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "ksiazkadezaktywuj";
+    }
+
+    @RequestMapping("/potwierdzdks/{id}")
+    String potwierdzdks(@PathVariable(value = "id") long id, Model model) {
+        Book book = bookRepository.findOne(id);
+        model.addAttribute("ksiazka", book);
+        //userRepository.delete(id);
+        book.setEnabled(0);
+        bookRepository.save(book);
+        //model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "redirect:/listaksiazek";
+    }
+
+    @RequestMapping("/kategoriadezaktywuj/{id}")
+    String kategoriadezaktywuj(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("kategoria", categoryRepository.getOne(id));
+        //model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "kategoriadezaktywuj";
+    }
+
+    @RequestMapping("/potwierdzdkat/{id}")
+    String potwierdzdkat(@PathVariable(value = "id") long id, Model model) {
+        Category category = categoryRepository.findOne(id);
+        model.addAttribute("kategoria", category);
+        //userRepository.delete(id);
+        category.setEnabled(0);
+        categoryRepository.save(category);
+        //model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "redirect:/listakategorii";
+    }
+
+    @RequestMapping("/potwierdzduzytkownika/{id}")
+    String potwierdzduzytkownika(@PathVariable(value = "id") long id, Model model) {
+        User user = userRepository.findOne(id);
+        model.addAttribute("uzytkownik", user);
+        user.setEnabled(0);
+        userRepository.save(user);
         //model.addAttribute("liczbauzytkownikow", userRepository.count());
         return "redirect:/listauzytkownikow";
     }
+
     @RequestMapping(value = "/dodajroledouzytkownika/{id}", method = RequestMethod.GET)
     String dodajkategoriedouzytkownika(@PathVariable("id") long id, Model model) {
         model.addAttribute("uzytkownik", userRepository.findOne(id));

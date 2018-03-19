@@ -13,16 +13,26 @@ public class Category {
     private long category_id;
     @Column(name = "name")
     private String name;
-
+    @Column(name = "enabled", nullable = false)
+    private int enabled = 1;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             mappedBy = "categories")
     private Set<Book> books;
 
-    public Category(String name) {
+    public Category(String name, int enabled) {
         this.name = name;
+        this.enabled = enabled;
     }
 
     public Category() {
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 
     public Set<Book> getBooks() {

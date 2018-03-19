@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en" th:replace="frag/header :: header"></head>
+<body>
+<div th:replace="frag/bar :: bar"></div>
+<div class="container">
+	<form action="#" th:action="@{/potwierdzduzytkownika/{id}(id=${uzytkownik.userId})}" th:object="${uzytkownik}" method="post">
+		<div class="form-group">
+			<p><h1>Czy na pewno dezaktywować użytkownika?</h1></p>
+			<p><input type="submit" class="btn btn-danger" value="DEZAKTYWUJ"/></p>
+		</div>
+	</form>
+</div>
+<div lang="en" th:replace="frag/footer :: footer"></div>
+</body>
+</html>

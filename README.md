@@ -15,6 +15,13 @@
 
 # Versions
 ### Current:  0.08
+              
+Added new functionality and rebuided previous: 
+* user, category and book deactivate,
+* minor html and css improvements.
+
+
+0.08
 
 Added new functionality: 
 * user delete.

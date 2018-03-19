@@ -4,19 +4,22 @@
 <body>
 <div th:replace="frag/bar :: bar"></div>
 <div class="container">
+	<h1>Lista kategorii:</h1>
 	<table class="table table-hover">
-		<thead>
 		<tr>
 			<td>Id</td>
 			<td>Nazwa kategorii</td>
+			<!--<td>Enabled</td>-->
+			<td>Opcje</td>
 		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="count : ${listakat}">
-			<td th:text="${count.category_id}"></td>
-			<td th:text="${count.name}"></td>
+		<tr th:each="l : ${listakat}" th:if="${l.enabled==1}">
+			<td th:text="${l.category_id}"></td>
+			<td th:text="${l.name}"></td>
+			<!--<td th:text="${l.enabled}"></td>-->
+			<td>
+				<a class="btn btn-danger" th:href="@{/kategoriadezaktywuj/{id}(id=${l.category_id})}" role="button">Dezaktywuj kategorię</a>
+			</td>
 		</tr>
-		</tbody>
 	</table>
 	<p th:text="${'Liczba wszystkich kategorii w bazie: '+ liczbakat}"></p>
 </div>

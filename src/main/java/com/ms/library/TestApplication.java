@@ -44,12 +44,12 @@ public class TestApplication implements CommandLineRunner {
         roleRepository.deleteAllInBatch();
         userRepository.deleteAllInBatch();
 
-        bookRepository.save(new Book("Jan", "Kowalski", "Ważna książka", "Ossolineum", 1977));
-        bookRepository.save(new Book("Adam", "Nowak", "Kolejna ważna książka", "PWN", 1988));
+        bookRepository.save(new Book("Jan", "Kowalski", "Ważna książka", "Ossolineum", 1977,1));
+        bookRepository.save(new Book("Adam", "Nowak", "Kolejna ważna książka", "PWN", 1988,1));
 
-        categoryRepository.save(new Category("Naukowa"));
-        categoryRepository.save(new Category("Kryminał"));
-        categoryRepository.save(new Category("Horror"));
+        categoryRepository.save(new Category("Naukowa",1));
+        categoryRepository.save(new Category("Kryminał",1));
+        categoryRepository.save(new Category("Horror",1));
 
         User u1 = new User("admin", "admin123", "ADMIN",1);
         User u2 = new User("biblio", "biblio123", "BIBLIO",1);

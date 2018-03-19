@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en" th:replace="frag/header :: header"></head>
+<body>
+<div th:replace="frag/bar :: bar"></div>
+<div class="container">
+	<form action="#" th:action="@{/potwierdzdkat/{id}(id=${kategoria.category_id})}" th:object="${kategoria}" method="post">
+		<div class="form-group">
+			<p><h1>Czy na pewno dezaktywować kategorię?</h1></p>
+			<p><input type="submit" class="btn btn-danger" value="DEZAKTYWUJ"/></p>
+		</div>
+	</form>
+</div>
+<div lang="en" th:replace="frag/footer :: footer"></div>
+</body>
+</html>
