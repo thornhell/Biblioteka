@@ -120,9 +120,6 @@ public class indexController {
         return "redirect:/listaksiazek";
     }
 
-//-------------------------------
-
-
     @RequestMapping(value = "/dodajuzytkownikaform", method = RequestMethod.GET)
     String dodajuzytkownika(Model model) {
         model.addAttribute("uzytkownik", new User());
@@ -153,6 +150,20 @@ public class indexController {
         return "uzytkownikdetal";
     }
 
+    @RequestMapping("/uzytkownikusun/{id}")
+    String uzytkownikusun(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("uzytkownik", userRepository.getOne(id));
+        //model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "uzytkownikusun";
+    }
+
+    @RequestMapping("/potwierdzuu/{id}")
+    String potwierdzuu(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("uzytkownik", userRepository.getOne(id));
+        userRepository.delete(id);
+        //model.addAttribute("liczbauzytkownikow", userRepository.count());
+        return "redirect:/listauzytkownikow";
+    }
     @RequestMapping(value = "/dodajroledouzytkownika/{id}", method = RequestMethod.GET)
     String dodajkategoriedouzytkownika(@PathVariable("id") long id, Model model) {
         model.addAttribute("uzytkownik", userRepository.findOne(id));
@@ -173,25 +184,12 @@ public class indexController {
         Role newuserrole = new Role();
         newuserrole.setUserName(user.getUserName());
         newuserrole.setRoleName(user.getUserRole());
-        roleRepository.save(newuserrole);
-
-
-
-        //role.setRoleName(role);
-      //  book.getCategories().add(category);
+        roleRepository.save(newuserrole);;
         userRepository.save(user);
         System.out.println(user.toString());
-       // bookRepository.save(book);
         return "redirect:/listauzytkownikow";
     }
 
-
-
-
-
-
-
-    //dodawanie kategorii do ksiazki
     @RequestMapping(value = "/dodajkategoriedoksiazki/{id}", method = RequestMethod.GET)
     String dodajkategoriedoksiazki(@PathVariable("id") long id, Model model) {
         model.addAttribute("ksiazka", bookRepository.findOne(id));

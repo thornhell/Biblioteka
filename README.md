@@ -14,14 +14,21 @@
 
 
 # Versions
-### Current:  0.07
+### Current:  0.08
+
+Added new functionality: 
+* user delete.
+
+
+### Old:
+0.07
 
 Added improvements:
 * user menu depend on user role
 * user 'admin' can now add another user
 * some code improvments
 
-### Old:
+
 0.06
 
 Added improvements:

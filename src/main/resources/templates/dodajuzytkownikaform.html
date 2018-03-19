@@ -9,9 +9,7 @@
 	<form action="#" th:action="@{/potwierdzdu}" th:object="${uzytkownik}" method="post">
 		<div class="form-group">
 			<p>Nazwa użytkownika: <input type="text" class="form-control" th:field="*{userName}"/></p>
-			<!--<p>Rola użytkownika: <input type="text" class="form-control" th:field="*{userRole}"/></p>-->
 			<p>Hasło użytkownika: <input type="text" class="form-control" th:field="*{userPassword}"/></p>
-			<!--<p>Enabled: <input type="text" class="form-control" th:field="*{enabled}"/></p>-->
 			<p><input type="submit" class="btn btn-primary" value="Dodaj"/> <input type="reset" class="btn btn-primary" value="Wyczyść"/></p>
 		</div>
 	</form>

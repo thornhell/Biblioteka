@@ -13,6 +13,7 @@
 			<td>Hasło użytkownika</td>
 			<td>Enabled</td>
 			<td>Dodaj/zmień rolę</td>
+			<td>Usuń uźytkownika</td>
 
 		</tr>
 		</thead>
@@ -24,7 +25,7 @@
 			<td th:text="${lista.userPassword}"></td>
 			<td th:text="${lista.enabled}"></td>
 			<td><a class="btn btn-primary" th:href="@{/uzytkownikdetal/{id}(id=${lista.userId})}" role="button">Szczegóły</a></td>
-
+			<td><a class="btn btn-primary" th:href="@{/uzytkownikusun/{id}(id=${lista.userId})}" role="button">Usuń użytkownika</a></td>
 		</tr>
 		</tbody>
 	</table>
