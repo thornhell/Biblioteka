@@ -24,7 +24,7 @@
 			<td><a class="btn btn-danger" th:href="@{/uzytkownikdezaktywuj/{id}(id=${lista.userId})}" role="button">Dezaktywuj użytkownika</a></td>
 		</tr>
 	</table>
-	<p th:text="${'Liczba wszystkich użytkowników w bazie: '+ liczbauzytkownikow}"></p>
+	<p th:text="${'Liczba aktywnych użytkowników w bazie: ' + aktywne + ', wszystkich:' + liczbauzytkownikow}"> </p>
 </div>
 <div lang="en" th:replace="frag/footer :: footer"></div>
 </body>

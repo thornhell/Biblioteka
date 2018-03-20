@@ -66,23 +66,25 @@ public class indexController {
     }
 
     @RequestMapping("/listaksiazek")
-    String lista(Model model) {
+    String listaksiazek(Model model) {
         model.addAttribute("lista", bookRepository.findAll());
-        model.addAttribute("liczba", bookRepository.count());//po co?
+        model.addAttribute("liczbaksiazek", bookRepository.count());
         List<Category> categories = (List<Category>) categoryRepository.findAll();
         model.addAttribute("categories", categories);
+        model.addAttribute("aktywne",bookRepository.countAllByEnabled(1));
         return "listaksiazek";
     }
 
     @RequestMapping("/listakategorii")
-    String listakateg(Model model) {
+    String listakategorii(Model model) {
         model.addAttribute("listakat", categoryRepository.findAll());
-        model.addAttribute("liczbakat", categoryRepository.count());
+        model.addAttribute("liczbakategorii", categoryRepository.count());
+        model.addAttribute("aktywne",categoryRepository.countAllByEnabled(1));
         return "listakategorii";
     }
 
     @RequestMapping("/ksiazkadetal/{id}")
-    String listaId(@PathVariable(value = "id") long id, Model model) {
+    String ksiazkadetal(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("lista", bookRepository.getOne(id));
         model.addAttribute("liczba", bookRepository.count());
         return "ksiazkadetal";
@@ -139,6 +141,7 @@ public class indexController {
     String listauzytkownikow(Model model) {
         model.addAttribute("listau", userRepository.findAll());
         model.addAttribute("liczbauzytkownikow", userRepository.count());
+        model.addAttribute("aktywne",userRepository.countAllByEnabled(1));
         return "listauzytkownikow";
     }
 

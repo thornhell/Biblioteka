@@ -14,20 +14,22 @@
 
 
 # Versions
-### Current:  0.08
+### Current:  0.09
+
+Added new functionality: 
+* information about active entities and all entities now are displayed;
+* added simple custom error pages.
+
+
+### Old:
+
+0.08
               
-Added new functionality and rebuided previous: 
+Added new functionality and rebuilded previous: 
 * user, category and book deactivate,
 * minor html and css improvements.
 
 
-0.08
-
-Added new functionality: 
-* user delete.
-
-
-### Old:
 0.07
 
 Added improvements:
