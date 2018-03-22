@@ -16,9 +16,10 @@
 			<td>Wydawnictwo</td>
 			<td>Rok wydania</td>
 			<td>Kategoria</td>
-			<td>Opcje</td>
+			<td sec:authorize="hasAnyAuthority('USER')">Akcja</td>
+			<td sec:authorize="hasAnyAuthority('BIBLIO','ADMIN')">Opcje</td>
 		</tr>
-		<tr th:each="l : ${lista}" th:if="${l.enabled==1}">
+		<tr th:each="l : ${lista}" th:if="${l.enabled==1 and l.status==1}">
 			<td th:text="${l.bookId}"></td>
 			<td th:text="${l.bookAutorImie}"></td>
 			<td th:text="${l.bookAutorNazwisko}"></td>
@@ -27,13 +28,17 @@
 			<td th:text="${l.bookRokWydania}"></td>
 			<td>
 				<span th:each="kategoria,powt : ${l.categories}">
-					<span th:if="${kategoria.name} != null" th:text="${kategoria.name}"/>
+					<span th:if="${kategoria.name}">
 					<th:block th:if="${!powt.last}">,</th:block>
+					</span>
 				</span>
 			</td>
-			<td><a class="btn btn-primary" th:href="@{/ksiazkadetal/{id}(id=${l.bookId})}" role="button">Zmień kategorię</a>
+			<td sec:authorize="hasAnyAuthority('USER')">
+				<a class="btn btn-primary" th:href="@{/wypozycz/{id}(id=${l.bookId})}"  role="button">Wypozycz</a>
+			</td>
+			<td sec:authorize="hasAnyAuthority('BIBLIO','ADMIN')">
+				<a class="btn btn-primary" th:href="@{/ksiazkadetal/{id}(id=${l.bookId})}" role="button">Zmień kategorię</a>
 				<a class="btn btn-danger" th:href="@{/ksiazkadezaktywuj/{id}(id=${l.bookId})}" role="button">Dezaktywuj</a>
-
 			</td>
 		</tr>
 	</table>

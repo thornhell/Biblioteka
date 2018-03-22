@@ -1,13 +1,7 @@
 package com.ms.library.controller;
 
-import com.ms.library.model.Book;
-import com.ms.library.model.Category;
-import com.ms.library.model.Role;
-import com.ms.library.model.User;
-import com.ms.library.repository.BookRepository;
-import com.ms.library.repository.CategoryRepository;
-import com.ms.library.repository.RoleRepository;
-import com.ms.library.repository.UserRepository;
+import com.ms.library.model.*;
+import com.ms.library.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +14,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,6 +33,9 @@ public class indexController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    BorrowRepository borrowRepository;
 
     @RequestMapping("/")
     String index(Model model) {
@@ -71,7 +70,7 @@ public class indexController {
         model.addAttribute("liczbaksiazek", bookRepository.count());
         List<Category> categories = (List<Category>) categoryRepository.findAll();
         model.addAttribute("categories", categories);
-        model.addAttribute("aktywne",bookRepository.countAllByEnabled(1));
+        model.addAttribute("aktywne", bookRepository.countAllByEnabled(1));
         return "listaksiazek";
     }
 
@@ -79,7 +78,7 @@ public class indexController {
     String listakategorii(Model model) {
         model.addAttribute("listakat", categoryRepository.findAll());
         model.addAttribute("liczbakategorii", categoryRepository.count());
-        model.addAttribute("aktywne",categoryRepository.countAllByEnabled(1));
+        model.addAttribute("aktywne", categoryRepository.countAllByEnabled(1));
         return "listakategorii";
     }
 
@@ -118,7 +117,7 @@ public class indexController {
         if (result.hasErrors()) {
             return "/error";
         }
-        bookRepository.save(new Book(book.getBookAutorImie(), book.getBookAutorNazwisko(), book.getBookTytul(), book.getBookWydawnictwo(), book.getBookRokWydania(), book.getEnabled()));
+        bookRepository.save(new Book(book.getBookAutorImie(), book.getBookAutorNazwisko(), book.getBookTytul(), book.getBookWydawnictwo(), book.getBookRokWydania(), book.getEnabled(), book.getStatus()));
         return "redirect:/listaksiazek";
     }
 
@@ -133,7 +132,7 @@ public class indexController {
         if (result.hasErrors()) {
             return "/error";
         }
-        userRepository.save(new User(user.getUserName(), user.getUserPassword(), user.getUserRole(), user.getEnabled()));
+        userRepository.save(new User(user.getUserName(), user.getUserPassword(), user.getUserRole(), user.getEnabled(), user.getLwyp()));
         return "redirect:/listauzytkownikow";
     }
 
@@ -141,7 +140,7 @@ public class indexController {
     String listauzytkownikow(Model model) {
         model.addAttribute("listau", userRepository.findAll());
         model.addAttribute("liczbauzytkownikow", userRepository.count());
-        model.addAttribute("aktywne",userRepository.countAllByEnabled(1));
+        model.addAttribute("aktywne", userRepository.countAllByEnabled(1));
         return "listauzytkownikow";
     }
 
@@ -189,7 +188,6 @@ public class indexController {
     String potwierdzdkat(@PathVariable(value = "id") long id, Model model) {
         Category category = categoryRepository.findOne(id);
         model.addAttribute("kategoria", category);
-        //userRepository.delete(id);
         category.setEnabled(0);
         categoryRepository.save(category);
         //model.addAttribute("liczbauzytkownikow", userRepository.count());
@@ -226,9 +224,9 @@ public class indexController {
         Role newuserrole = new Role();
         newuserrole.setUserName(user.getUserName());
         newuserrole.setRoleName(user.getUserRole());
-        roleRepository.save(newuserrole);;
+        roleRepository.save(newuserrole);
         userRepository.save(user);
-        System.out.println(user.toString());
+       // System.out.println(user.toString());
         return "redirect:/listauzytkownikow";
     }
 
@@ -247,6 +245,19 @@ public class indexController {
         Book book = bookRepository.findOne(id);
         book.getCategories().add(category);
         bookRepository.save(book);
+        return "redirect:/listaksiazek";
+    }
+
+    @RequestMapping(value = "/wypozycz/{id}", method = RequestMethod.GET)
+    String wypozycz(@PathVariable("id") long id, Model model) {
+        Book b = bookRepository.findOne(id);
+        b.setStatus(0);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User u = userRepository.findByUserName(name);
+        Borrows borrows = new Borrows(null, u,b);
+        bookRepository.save(b);
+        borrowRepository.save(borrows);
         return "redirect:/listaksiazek";
     }
 }

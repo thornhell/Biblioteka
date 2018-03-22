@@ -23,22 +23,34 @@ public class Book {
     private int bookRokWydania;
     @Column(name = "enabled", nullable = false)
     private int enabled = 1;
+    @Column(name = "status", nullable = false)
+    private int status = 1;
+    //relacja ksiązka - kategoria
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "book_category",
             joinColumns = {@JoinColumn(name = "bookId")},
             inverseJoinColumns = {@JoinColumn(name = "category_id")})
-
     private Set<Category> categories = new HashSet<Category>();
 
     public Book() {
     }
-    public Book(String bookAutorImie, String bookAutorNazwisko, String bookTytul, String bookWydawnictwo, int bookRokWydania, int enabled) {
+
+    public Book(String bookAutorImie, String bookAutorNazwisko, String bookTytul, String bookWydawnictwo, int bookRokWydania, int enabled, int status) {
         this.bookAutorImie = bookAutorImie;
         this.bookAutorNazwisko = bookAutorNazwisko;
         this.bookTytul = bookTytul;
         this.bookWydawnictwo = bookWydawnictwo;
         this.bookRokWydania = bookRokWydania;
         this.enabled = enabled;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getEnabled() {

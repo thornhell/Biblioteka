@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "librarytablerole")
+@Table(name = "role")
 public class Role {
 
     @Id

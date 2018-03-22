@@ -10,14 +10,14 @@
 			<td>Id</td>
 			<td>Nazwa kategorii</td>
 			<!--<td>Enabled</td>-->
-			<td>Opcje</td>
+			<td sec:authorize="hasAnyAuthority('BIBLIO','ADMIN')">Opcje</td>
 		</tr>
 		<tr th:each="l : ${listakat}" th:if="${l.enabled==1}">
 			<td th:text="${l.category_id}"></td>
 			<td th:text="${l.name}"></td>
 			<!--<td th:text="${l.enabled}"></td>-->
 			<td>
-				<a class="btn btn-danger" th:href="@{/kategoriadezaktywuj/{id}(id=${l.category_id})}" role="button">Dezaktywuj kategorię</a>
+				<a class="btn btn-danger" th:href="@{/kategoriadezaktywuj/{id}(id=${l.category_id})}" role="button" sec:authorize="hasAnyAuthority('BIBLIO','ADMIN')">Dezaktywuj kategorię</a>
 			</td>
 		</tr>
 	</table>

@@ -43,10 +43,9 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                //.withDefaultSchema()
                 .usersByUsernameQuery(
-                        "select librarytableuser.user_name as username, librarytableuser.user_password as password, librarytableuser.enabled as enabled from librarytableuser where librarytableuser.user_name=?")
+                        "select usert.user_name as username, usert.user_password as password, usert.enabled as enabled from usert where usert.user_name=?")
                 .authoritiesByUsernameQuery(
-                        "select librarytablerole.user_name as username, librarytablerole.role_name as role from librarytablerole where librarytablerole.user_name=?");
+                        "select role.user_name as username, role.role_name as role from role where role.user_name=?");
     }
 }

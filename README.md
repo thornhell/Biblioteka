@@ -14,14 +14,18 @@
 
 
 # Versions
-### Current:  0.09
+### Current:  0.10
+
+Added new functionality: 
+* user can borrow a book now.
+
+
+### Old:
+0.09
 
 Added new functionality: 
 * information about active entities and all entities now are displayed;
 * added simple custom error pages.
-
-
-### Old:
 
 0.08
               

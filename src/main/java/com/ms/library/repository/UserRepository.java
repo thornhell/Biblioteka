@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Long countAllByEnabled(int enabled);
+
+    User findByUserName(String name);
 }
